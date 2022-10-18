@@ -1,6 +1,5 @@
 <?php
 require_once ("../connectdb.php");
-session_start();
 
 if (!array_key_exists("username",$_SESSION)){
     die("What brings you here?");
@@ -20,7 +19,9 @@ if (array_key_exists("difficulty",$_SESSION)){
     $difficulty = 'Easy';
 }
 
+ob_start();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -48,3 +49,7 @@ if (array_key_exists("difficulty",$_SESSION)){
     <?php echo "The difficulty is " . $difficulty ?>
 </body>
 </html>
+<?php
+$content = ob_get_contents();
+ob_end_clean();
+require_once("../template.php");
