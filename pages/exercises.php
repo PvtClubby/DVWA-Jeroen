@@ -2,7 +2,7 @@
 require_once("../connectdb.php");
 
 if (!array_key_exists("username", $_SESSION)) {
-    header("Location: /login.php");
+    header("Location: /auth/login.php");
     header("Cache-Control: no-store");
     die();
 }

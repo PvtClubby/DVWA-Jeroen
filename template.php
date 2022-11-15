@@ -23,8 +23,9 @@
                         <a class="nav-link" href="/pages/settings.php">Change Difficulty</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item d-flex me-3">
+                    <p class="my-auto d-flex">
                         <?php
                         if (array_key_exists("username", $_SESSION)){
                             echo 'Current user ' . htmlentities($_SESSION["username"]);
@@ -32,12 +33,11 @@
 
                         }
                         ?>
+                        </p>
                     </li>
-                </ul>
-
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 float-right">
-                    <li class="nav-item">
-                        <p class="mb-0">
+                    
+                    <li class="nav-item d-flex">
+                        <p class="my-auto d-flex">
                         <?php   
                         if (array_key_exists("difficulty", $_SESSION)){
                             echo 'Difficulty: ' . htmlentities($_SESSION["difficulty"]);
@@ -47,6 +47,15 @@
 
                         ?>    
                         </p>
+                    </li>
+                    <li class="nav-item">
+                    <?php
+                        if (array_key_exists("username", $_SESSION)){ 
+                            ?>
+                            <a class="nav-link" href="/auth/logout.php">Logout</a>
+                            <?php                           
+                        }
+                        ?>
                     </li>
                 </ul>
             </div>
