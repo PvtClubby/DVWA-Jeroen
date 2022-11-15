@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">Jeroen DVWA</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,15 +20,27 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="/pages/choices.php">Change Difficulty</a>
+                        <a class="nav-link" href="/pages/settings.php">Change Difficulty</a>
                     </li>
                 </ul>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <?php
+                        if (array_key_exists("username", $_SESSION)){
+                            echo 'Current user ' . htmlentities($_SESSION["username"]);
+                        } else{
+
+                        }
+                        ?>
+                    </li>
+                </ul>
+
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 float-right">
                     <li class="nav-item">
                         <p class="mb-0">
                         <?php   
                         if (array_key_exists("difficulty", $_SESSION)){
-                            echo $_SESSION["difficulty"];
+                            echo 'Difficulty: ' . htmlentities($_SESSION["difficulty"]);
                         } else {
                             echo 'No difficulty set';
                         }

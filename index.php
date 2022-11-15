@@ -13,7 +13,8 @@ ob_start();
 
     <h1>Welcome</h1>
 
-    <p>Please use the <a href="/pages/choices.php">Choices</a> page for the attacks what you want to practice</p>
+    <p>Please use the <a href="/pages/exercises.php">choices</a> page for the attacks what you want to practice</p>
+    <p>Select the <a href ="/pages/settings.php">difficulty</a> of the exercises.</p>
 <?php
 $content = ob_get_contents();
 ob_end_clean();

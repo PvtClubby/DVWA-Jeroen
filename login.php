@@ -1,15 +1,25 @@
 <?php
 require_once('connectdb.php');
+require_once("mfa/phpotp/code/rfc6238.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $user = $_POST['user'];
     $pswd = $_POST['pswd'];
-    
+
     $usersafe = mysqli_escape_string($conn, $user);
     $pswdsafe = mysqli_escape_string($conn, $pswd);
     $query = mysqli_query($conn, "SELECT * FROM users WHERE passwordhash = '" . $pswdsafe . "' AND username = '" . $usersafe . "' LIMIT 1");
     $rows = mysqli_num_rows($query);
     if ($rows == 1) {
+        $row = mysqli_fetch_array($query);
+        
+        $secret = Base32Static::encode($row["otp_secret"]);
+
+        if (!TokenAuth6238::verify($secret,$_POST["otp"])) {
+            echo "Invalid code\n";
+            die();
+        } 
+        
         $_SESSION['username'] = $user;
         $redirecturl = "/";
 
@@ -20,16 +30,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         print $error;
     }
     mysqli_close($conn);
-} else {
-?>
-
-
-
-
+    } else {
+    ?>
+    
     <?php
     ob_start();
 
     ?>
+
     <style>
         .center {
             display: flex;
@@ -55,7 +63,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="text" placeholder="Username" name="user" id="user" class="mb">
 
                 <input type="password" placeholder="Password" name="pswd" id="pswd" class="mb">
-                <button type="submit">Login</button>
+                <input type="number" placeholder="OTP Code" name="otp">
+                <button type="submit">Login</button>             
+                <?php 
+                $secret = Base32Static::encode("tafeltennistafeltennis");
+                print "<img src=\"". TokenAuth6238::getBarCodeUrl('jeroen','dvwa',$secret, '') . "\"/>";
+                ?>
             </form>
         </div>
     </div>

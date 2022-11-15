@@ -9,6 +9,10 @@ if (!array_key_exists("username",$_SESSION)){
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     
     $difficulty=$_POST['difficulty'];
+    $alloweddifficulties = array('Easy', 'Medium', 'Hard');
+    if (!in_array($difficulty , $alloweddifficulties)){
+        die('That difficulty does not exist!');
+    }
 
     $_SESSION["difficulty"] = $difficulty;
 }
@@ -33,9 +37,8 @@ ob_start();
 
 </head>
 <body>
-    <h1>Choice Menu</h1>
-    <p>What would you like to practice?</p>
-
+    <h1>Difficulty settings</h1>
+    
     <p>Select your difficulty</p>
     <form action="" method="post">
     <input type="radio" name="difficulty" value="Easy" <?php echo ($difficulty == 'Easy' ? 'checked' : '');?> > Easy
@@ -46,7 +49,7 @@ ob_start();
     <p></p>
     <input type="submit" name="save" value="Save">
     </form>
-    <?php echo "The difficulty is " . $difficulty ?>
+    <?php echo "The difficulty is " . htmlentities($difficulty) ?>
 </body>
 </html>
 <?php
