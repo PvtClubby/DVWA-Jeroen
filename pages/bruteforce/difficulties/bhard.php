@@ -1,8 +1,18 @@
 <?php
 ob_start();
-$username = "admin_medium";
+$username = "admin_hard";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") { //If the server gets a POST request, do the following.
+
+    $now = time();
+    if (array_key_exists("blocked_until", $_SESSION)){
+        $blockedUntil = $_SESSION["blocked_until"];
+        $_SESSION["blocked_until"] = $now + 5;
+        if($now < $blockedUntil){
+            die("Please wait before trying again!");
+        }
+    }
+    $_SESSION["blocked_until"] = $now + 5;
 
     $buser = $_POST['buser']; //take the html value's that are inserted and give them a name.
     $bpswd = $_POST['bpswd'];
@@ -51,17 +61,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { //If the server gets a POST request,
             <p></p>
             <button type="submit" class="btn btn-primary mb-3 disabled" id="login-button">Login</button>
         </form>
-        <div class="accordion" id="accordionhint2">
+        <div class="accordion" id="accordionhint">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingtwo">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsetwo" aria-expanded="false" aria-controls="collapseOne">
                         Show Hint 1
                     </button>
                 </h2>
-                <div id="collapsetwo" class="accordion-collapse collapse" aria-labelledby="headingtwo" data-bs-parent="#accordionhint2">
+                <div id="collapsetwo" class="accordion-collapse collapse" aria-labelledby="headingtwo" data-bs-parent="#accordionhint">
                     <div class="accordion-body">
                         <div class="form-floating">
-                            Try to bypass the cooldown.
+                            Abuse your $_SESSION(s).
                         </div>
                     </div>
                 </div>
@@ -89,7 +99,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { //If the server gets a POST request,
                 </div>
             </div>
         </div>
-
         <div class="accordion" id="accordionExample">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingOne">
