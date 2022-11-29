@@ -5,33 +5,23 @@ if (!array_key_exists("username",$_SESSION)){
     die("What brings you here?");
 } 
 
-
-
 if (array_key_exists("difficulty", $_SESSION)) {
-    if ($_SESSION == "Easy"){
-
+    if ($_SESSION["difficulty"] == "Easy"){
+        require_once("./difficulties/beasy.php");
     }
 
-    if ($_SESSION == "Medium"){
-
+    if ($_SESSION["difficulty"] == "Medium"){
+        require_once("./difficulties/bmedium.php");
     }
 
-    if ($_SESSION == "Hard"){
+    if ($_SESSION["difficulty"] == "Hard"){
+        require_once("./difficulties/bhard.php");
+    } 
+    
+} else {
+    print ("Please select your difficulty first! ");
+    ?> 
+    <a href="/pages/settings.php">Click here to set your difficulty.</a>
+    <?php
 
-    }
 }
-
-ob_start();
-
-?>
-
-<h1> Brute Force </h1>
-
-<p> test </p>
-<p> test </p>
-
-
-<?php
-$content = ob_get_contents();
-ob_end_clean();
-require_once("../../template.php");

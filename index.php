@@ -1,9 +1,9 @@
 <?php
-require_once("connectdb.php");
+require_once("connectdb.php"); //Set connection with database.
 
-if (!array_key_exists("username", $_SESSION)) {
-    header("Location: /auth/login.php");
-    header("Cache-Control: no-store");
+if (!array_key_exists("username", $_SESSION)) { //if the username does not exist in database
+    header("Location: /auth/login.php"); //readirect the user towards the login page.
+    header("Cache-Control: no-store"); //The cache should not be stored or else the user will be redirected towards the login page.
     die();
 }
 

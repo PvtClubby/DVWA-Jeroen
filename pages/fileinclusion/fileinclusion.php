@@ -35,7 +35,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($_SESSION['difficulty'] == "Medium"){
             if ($file_size <= 2000000000){
-                
                 $file_destination = './uploads/' . $file_name;
                 if (move_uploaded_file($file_tmp, $file_destination)){
                     echo htmlentities($file_name) . ' succesfully uploaded!';

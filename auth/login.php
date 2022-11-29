@@ -1,39 +1,42 @@
 <?php
-require_once('../connectdb.php');
-require_once("../mfa/phpotp/code/rfc6238.php");
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+require_once('../connectdb.php'); //Set connection with database.
+require_once("../mfa/phpotp/code/rfc6238.php"); // use the mfa library to use the functionality.
+if ($_SERVER["REQUEST_METHOD"] == "POST") { //If the server gets a POST request, do the following.
 
-    $user = $_POST['user'];
+    $user = $_POST['user']; //take the html value's that are inserted and give them a name.
     $pswd = $_POST['pswd'];
     $otp = $_POST['otp'];
 
-    $usersafe = mysqli_escape_string($conn, $user);
-    $pswdsafe = mysqli_escape_string($conn, $pswd);
+    $usersafe = mysqli_escape_string($conn, $user); //ask the username credentials of the database.
+    $pswdsafe = mysqli_escape_string($conn, $pswd); //ask the password credentials of the database.
     $query = mysqli_query($conn, "SELECT * FROM users WHERE passwordhash = '" . $pswdsafe . "' AND username = '" . $usersafe . "' LIMIT 1");
+    //Ask the following query from the database and return 1 user.
     $rows = mysqli_num_rows($query);
     if ($rows == 1) {
         $row = mysqli_fetch_array($query);
         $mfasecret = $row["otp_secret"];
 
-        if ($mfasecret != ''){
-            $secret = Base32Static::encode($mfasecret);
+        if ($mfasecret != ''){ //If the MFA value in the database is filled in or is blank.
+            $secret = Base32Static::encode($mfasecret); //encode this filledin value
             
-            if (!TokenAuth6238::verify($secret,$otp)) {
-                echo "Invalid code\n";
-                die($row['otp_secret']);
+            //check if the value is the same based on the time & database.
+            if (!TokenAuth6238::verify($secret,$otp)) { //the value is not the same.
+                echo "Invalid code\n"; //send message
+                die($row['otp_secret']); //end session
             } 
         }
 
-        $_SESSION['username'] = $user;
-        $redirecturl = "/";
+        $_SESSION['username'] = $user; //the html value will be the username session if the username is correct
+        $redirecturl = "/"; //send the user to the home page
 
         http_response_code(302);
         header("Location: " . $redirecturl);
-    } else {
+
+    } else { //username/password is not correct
         $error = "Username or Password is Invalid";
         print $error;
     }
-    mysqli_close($conn);
+    mysqli_close($conn); //close the connection
     } else {
     ?>
     
@@ -42,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     ?>
 
-    <style>
+    <style> 
         .center {
             display: flex;
             margin-left: auto;
@@ -62,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <div class="loginpagina center column">
             <h1 class="center">Login</h1>
-            <p>If you don't have an account yet, Click <a href ="/auth/register.php">here</a> to register.</p>
+            <p> If you don't have an account yet, Click <a href ="/auth/register.php">here</a> to register.</p>
             <p> If you have MFA enabled, Please enter your OTP code. </p>
             <p> Otherwise, leave the OTP field empty. </p>
 
@@ -76,9 +79,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 <?php
-    $content = ob_get_contents();
-    ob_end_clean();
-    require_once("../template.php");
+    $content = ob_get_contents(); //get the content of the output buffer
+    ob_end_clean(); //clean the buffer
+    require_once("../template.php"); //use the css template
 }
 
 //

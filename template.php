@@ -61,10 +61,11 @@
             </div>
         </div>
     </nav>
+    <div class="w-100 p-3">
+        <?php 
+        print $content;
 
-    <?php 
-    print $content;
-
-    ?>
+        ?>
+    </div>
 </body>
 </html>

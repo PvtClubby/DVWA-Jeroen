@@ -1,25 +1,25 @@
 <?php
 require_once ("../connectdb.php");
 
-if (!array_key_exists("username",$_SESSION)){
+if (!array_key_exists("username",$_SESSION)){ //check if a database user is logged in
     die("What brings you here?");
 } 
 
 
-if($_SERVER["REQUEST_METHOD"] == "POST"){
+if($_SERVER["REQUEST_METHOD"] == "POST"){ //if the server gets a POST request do:
     
-    $difficulty=$_POST['difficulty'];
-    $alloweddifficulties = array('Easy', 'Medium', 'Hard');
-    if (!in_array($difficulty , $alloweddifficulties)){
+    $difficulty=$_POST['difficulty']; //the post request will be difficulty value
+    $alloweddifficulties = array('Easy', 'Medium', 'Hard'); //these difficulties are allowed
+    if (!in_array($difficulty , $alloweddifficulties)){ //check if the POST value fits into the allowed difficulties
         die('That difficulty does not exist!');
     }
 
-    $_SESSION["difficulty"] = $difficulty;
+    $_SESSION["difficulty"] = $difficulty; //make a session with the difficulty value
 }
 
-if (array_key_exists("difficulty",$_SESSION)){
+if (array_key_exists("difficulty",$_SESSION)){ //check if the difficulty value is set 
     $difficulty = $_SESSION["difficulty"];  
-} else {
+} else { //value is not set, so make it Easy
     $difficulty = 'Easy';
 }
 
