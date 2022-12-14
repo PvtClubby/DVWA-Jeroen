@@ -107,12 +107,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { //If the server gets a POST request,
             </div>
         </div>
         <script>
-            let button = document.getElementById("login-button");
+            let button = document.getElementById("login-button"); //The login button get's a 5 second cooldown after loading the page.
             setTimeout(() => {
                 button.classList.remove("disabled");
             }, 5000);
             
-            let form = document.getElementById("bruteforce-form");
+            let form = document.getElementById("bruteforce-form"); //if the login button is disabled, you can't do a post request.
             form.addEventListener("submit", (event) => {
                 if(button.classList.contains("disabled")){
                     event.preventDefault();

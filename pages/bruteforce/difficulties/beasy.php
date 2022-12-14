@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { //If the server gets a POST request,
         <h1> Brute Force </h1>
         <p>Greetings, This is a login page to practise your Brute Forcing</p>
         <p>Goal: Force yourself into the user account by guessing/automating the username/password.</p>
-        <p>Extra Description: You can type it for yourself but you can also use tools like: Burpsuite OWASPZap Johnther</p>
+        <p>Extra Description: You can type it for yourself but you can also use tools like: Burpsuite, OWASPZap, HYDRA</p>
         <p></p>
 
         <form action="" method="post" class="center">
@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { //If the server gets a POST request,
             <p></p>
             <button type="submit" class="btn btn-primary mb-3">Login</button>
         </form>
-        <div class="accordion" id="accordionExample">
+        <div class="accordion" id="accordionExample"> <?php //make a tab with the following inside: ?>
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingOne">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
@@ -61,10 +61,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { //If the server gets a POST request,
                 </div>
             </div>
         </div>
-        <div class="accordion" id="accordionhint2">
+        <div class="accordion" id="accordionhint2"><?php //make a tab with the following inside: ?>
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingtwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsetwo" aria-expanded="false" aria-controls="collapseOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsetwo" aria-expanded="false" aria-controls="collapsetwo">
                         Take a look at the code
                     </button>
                 </h2>

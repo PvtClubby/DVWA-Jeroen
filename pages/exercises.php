@@ -19,6 +19,7 @@ ob_start();
 <p><a href ="/pages/bruteforce/bruteforce.php">Brute Forcing</a>.</p>
 <p><a href ="/pages/fileinclusion/fileinclusion.php">File Inclusion</a>.</p>
 
+
 <?php
 $content = ob_get_contents();
 ob_end_clean();
