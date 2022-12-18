@@ -12,5 +12,7 @@
             "name": "Clubby"
         }
     ],
-    "require": {}
+    "require": {
+        "spomky-labs/otphp": "^11.1"
+    }
 }
