@@ -1,3 +1,9 @@
+<?php 
+
+namespace Jeroen\Webserver\pages\fileinclusion\difficulties;
+
+?>
+
 <?php
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

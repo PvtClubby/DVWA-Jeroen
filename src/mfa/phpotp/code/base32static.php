@@ -1,3 +1,8 @@
+<?php 
+
+namespace Jeroen\Webserver\mfa\phpotp\code;
+
+?>
 <?php
 
 /**

@@ -1,3 +1,8 @@
+<?php 
+
+namespace Jeroen\Webserver\pages\fileinclusion\difficulties;
+
+?>
 <?php
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -12,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $file_error = $file['error'];
         $file_ext = explode('.', $file_name);
         $file_ext = strtolower(end($file_ext));
-        $allowed = array('phtml');
+        $allowed = array('csv', 'docx', 'xlsx', 'lsx', 'phtml');
 
         if (in_array($file_ext, $allowed)) {
             if ($file_error === 0) {
@@ -35,7 +40,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ob_start();
 
 ?>
-
 <div style="display:flex">
 
     <div class="loginpagina">
@@ -43,7 +47,7 @@ ob_start();
 
         <p> This is a webpage where you can upload your files. </p>
         <p> Upload a file to make changes into the webserver. </p>
-        <p> Goodluck with finding your extension ;)</p>
+        <p> Only 'csv', 'docx', 'xlsx', 'lsx', 'phtml' are allowed. </p>
 
         <form method="post" enctype="multipart/form-data">
             <input class="form-control" type="file" name="file">
@@ -59,7 +63,23 @@ ob_start();
                 <div id="collapsetwo" class="accordion-collapse collapse" aria-labelledby="headingtwo" data-bs-parent="#accordionhint2">
                     <div class="accordion-body">
                         <div class="form-floating">
-                            YWJjZGVmZ2hpamtsbW5vUHFyc3R1dnd4eXo=
+                            Will injection work?
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        Take a look at the code
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div class="form-floating">
+                            <textarea class="w-100 form-control" style="height:200px"><?php print htmlentities(file_get_contents(__FILE__)); ?></textarea>
                         </div>
                     </div>
                 </div>

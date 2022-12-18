@@ -1,3 +1,8 @@
+<?php 
+
+namespace Jeroen\Webserver;
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 

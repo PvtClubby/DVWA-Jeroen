@@ -1,3 +1,8 @@
+<?php 
+
+namespace Jeroen\Webserver\auth;
+
+?>
 <?php
 require_once('../connectdb.php');
 ?>

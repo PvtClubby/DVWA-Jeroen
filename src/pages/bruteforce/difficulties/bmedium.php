@@ -1,3 +1,8 @@
+<?php 
+
+namespace Jeroen\Webserver\pages\bruteforce\difficulties;
+
+?>
 <?php
 ob_start();
 $username = "admin_medium";

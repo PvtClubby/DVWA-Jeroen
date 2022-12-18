@@ -1,3 +1,8 @@
+<?php 
+
+namespace Jeroen\Webserver\pages\bruteforce\difficulties;
+
+?>
 <?php
 ob_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") { //If the server gets a POST request, do the following.

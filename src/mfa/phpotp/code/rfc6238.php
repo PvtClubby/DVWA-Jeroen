@@ -1,3 +1,8 @@
+<?php 
+
+namespace Jeroen\Webserver\mfa\phpotp\code;
+
+?>
 <?php
   // http://www.faqs.org/rfcs/rfc6238.html   
 	require_once(dirname(__FILE__).'/base32static.php');

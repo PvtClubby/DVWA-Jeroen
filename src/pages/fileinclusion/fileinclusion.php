@@ -1,3 +1,8 @@
+<?php 
+
+namespace Jeroen\Webserver\pages\fileinclusion;
+
+?>
 <?php
 require_once("../../connectdb.php");
 

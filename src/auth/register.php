@@ -1,3 +1,11 @@
+<?php 
+
+namespace Jeroen\Webserver\auth;
+
+use Jeroen\Webserver\mfa\phpotp\code\Base32Static;
+use Jeroen\Webserver\mfa\phpotp\code\TokenAuth6238;
+
+?>
 <?php
 require_once('../connectdb.php'); //Set connection with database.
 require_once("../mfa/phpotp/code/rfc6238.php"); // use the mfa library to use the functionality.
