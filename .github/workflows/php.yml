@@ -47,6 +47,4 @@ jobs:
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
-    - name: Check dependencies using snyk
-      run: snyk test
       
