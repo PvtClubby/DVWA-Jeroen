@@ -1,6 +1,7 @@
 {
     "name": "jeroen/webserver",
     "type": "project",
+    "description": "DVWA like example",
     "autoload": {
         "psr-4": {
             "Jeroen\\Webserver\\": "src/"
