@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    service: jeroendvwa-app
+  name: jeroendvwa-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: jeroendvwa-app
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        network/jeroendvwa-network: "true"
+        service: jeroendvwa-app
+    spec:
+      containers:
+        - name: jeroendvwa-app
+          image: jeroendvwa/jeroendvwa_webserver:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          resources: {}
+          volumeMounts:
+            - name: jeroendvwa-app-connectdb-volume
+              mountPath: '/app/src'
+      imagePullSecrets:
+        - name: regcred
+      restartPolicy: Always
+      volumes:
+        - name: jeroendvwa-app-connectdb-volume
+          secret:
+            secretName: jeroendvwa-app-connectdb-secret
+            items:
+              - key: connectdb
+                path: connectdb.php
+status: {}

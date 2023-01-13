@@ -1,1 +1,1 @@
-cd src && php -S localhost:8082
+cd src && php -S localhost:8082 ..\index.php
