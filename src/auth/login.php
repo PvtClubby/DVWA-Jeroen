@@ -2,18 +2,20 @@
 
 namespace Jeroen\Webserver\auth;
 
-use Jeroen\Webserver\mfa\phpotp\code\Base32Static;
-use Jeroen\Webserver\mfa\phpotp\code\TokenAuth6238;
+// use Jeroen\Webserver\mfa\phpotp\code\Base32Static;
+// use Jeroen\Webserver\mfa\phpotp\code\TokenAuth6238;
+use OTPHP\TOTP;
+use ParagonIE\ConstantTime\Base32;
 
 ?>
 <?php
 require_once('../connectdb.php'); //Set connection with database.
-require_once("../mfa/phpotp/code/rfc6238.php"); // use the mfa library to use the functionality.
+// require_once("../mfa/phpotp/code/rfc6238.php"); // use the mfa library to use the functionality.
 if ($_SERVER["REQUEST_METHOD"] == "POST") { //If the server gets a POST request, do the following.
 
     $user = $_POST['user']; //take the html value's that are inserted and give them a name.
     $pswd = $_POST['pswd'];
-    $otp = $_POST['otp'];
+    $otpCode = $_POST['otp'];
 
     $usersafe = mysqli_escape_string($conn, $user); //ask the username credentials of the database.
     $pswdsafe = mysqli_escape_string($conn, $pswd); //ask the password credentials of the database.
@@ -25,13 +27,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { //If the server gets a POST request,
         $mfasecret = $row["otp_secret"];
 
         if ($mfasecret != ''){ //If the MFA value in the database is filled in or is blank.
-            $secret = Base32Static::encode($mfasecret); //encode this filledin value
+            $secret = trim(Base32::encodeUpper($mfasecret, '=')); //encode this filledin value
             
+            $otp = TOTP::createFromSecret($secret);
+            $otp->setPeriod(30);
+            $otp->setDigits(6);
             //check if the value is the same based on the time & database.
-            if (!TokenAuth6238::verify($secret,$otp)) { //the value is not the same.
-                echo "Invalid code\n"; //send message
-                die($row['otp_secret']); //end session
-            } 
+            // if (!TokenAuth6238::verify($secret,$otp)) { //the value is not the same.
+            //     echo "Invalid code\n"; //send message
+            //     die($row['otp_secret']); //end session
+            // } 
+            if (!$otp->verify($otpCode)) { //the value is not the same.
+                echo "Invalid otp code\n"; //send message
+                die(); //end session
+            }
         }
 
         $_SESSION['username'] = $user; //the html value will be the username session if the username is correct

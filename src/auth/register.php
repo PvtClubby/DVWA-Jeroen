@@ -2,8 +2,8 @@
 
 namespace Jeroen\Webserver\auth;
 
-use Jeroen\Webserver\mfa\phpotp\code\Base32Static;
 use Jeroen\Webserver\mfa\phpotp\code\TokenAuth6238;
+use ParagonIE\ConstantTime\Base32;
 
 ?>
 <?php
@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { //If the server gets a POST request,
     $_SESSION["username"] = $user; //Let the user be logged in after they registred account.
     
     if ($mfa == 'on') { //if mfa is 'on', encode the bytes and generate a qr code with the TokenAuth6238 class + getBarCodeUrl function from MFA library.
-    $secret = Base32Static::encode($mfasecret);
+    $secret = Base32::encodeUpper($mfasecret, '=');
     print "<img src=\"" . TokenAuth6238::getBarCodeUrl($user, 'dvwa', $secret, '') . "\"/>";
     print "Scan & Save the code with Google Authenticator.";
     print " Click on the Logo to get redirected to the homepage.";
