@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { //If the server gets a POST request,
     {  
         ?>
         <div class="alert alert-danger" role="alert">
-            lol u bad
+            Wrong, try again.
         </div>
         <?php
     }
